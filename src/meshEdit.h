@@ -272,7 +272,8 @@ class MeshEdit : public Renderer {
   void update_camera();
   void draw_meshes();
     
-  void advanceByOneFrame();
+  void advanceByOneFrameHeat();
+  void advanceByOneFrameWave();
     
   void add_random_point();
 

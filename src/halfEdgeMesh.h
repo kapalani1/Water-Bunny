@@ -654,7 +654,11 @@ namespace CMU462
          EdgeIter       flipEdge( EdgeIter e ); ///< flip an edge, returning a pointer to the flipped edge
          VertexIter      splitEdge( EdgeIter e ); ///< split an edge, returning a pointer to the inserted midpoint vertex; the halfedge of this vertex should refer to one of the edges in the original mesh
          VertexIter   collapseEdge( EdgeIter e ); ///< collapse an edge, returning a pointer to the collapsed vertex
-         void update_height_map();
+         void update_height_map_heat();
+       
+         void update_height_map_wave();
+       
+         void update_velocity_map_wave();
        
          void add_random_point();
 

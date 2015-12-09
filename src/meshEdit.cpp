@@ -109,7 +109,8 @@ namespace CMU462 {
    {
       update_camera();
       if (startAnimating) {
-          advanceByOneFrame();
+//          advanceByOneFrameHeat();
+          advanceByOneFrameWave();
       }
       draw_meshes();
 
@@ -180,10 +181,10 @@ namespace CMU462 {
        meshNodes[0].mesh.add_random_point();
    }
     
-   void MeshEdit::advanceByOneFrame()
+   void MeshEdit::advanceByOneFrameHeat()
    {
        //move each vertex by some height h by its original normal
-       meshNodes[0].mesh.update_height_map();
+       meshNodes[0].mesh.update_height_map_heat();
        for(VertexIter v = meshNodes[0].mesh.verticesBegin();
            v!= meshNodes[0].mesh.verticesEnd();
            v++)
@@ -193,7 +194,21 @@ namespace CMU462 {
                           (v->original_normal*ht));
        }
    }
-
+    
+    void MeshEdit::advanceByOneFrameWave()
+    {
+        //move each vertex by some height h by its original normal
+        meshNodes[0].mesh.update_height_map_wave();
+        for(VertexIter v = meshNodes[0].mesh.verticesBegin();
+            v!= meshNodes[0].mesh.verticesEnd();
+            v++)
+        {
+            double ht = meshNodes[0].mesh.height_map[v->index];
+            v->position = (v->original_position +
+                           (v->original_normal*ht));
+        }
+    }
+    
    void MeshEdit::draw_meshes()
    {
       for( vector<MeshNode>::iterator n = meshNodes.begin(); n != meshNodes.end(); n++ )
@@ -287,6 +302,10 @@ namespace CMU462 {
               add_random_point();
               startAnimating = true;
               break;
+         case 'w':
+         case 'W':
+              add_random_point();
+              startAnimating = true;
          case ']':
               meshNodes[0].mesh.time_step *= 2;
           case '[':
