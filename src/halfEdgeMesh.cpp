@@ -561,6 +561,7 @@ namespace CMU462 {
     
     void HalfedgeMesh::update_height_map_heat()
     {
+        M.setIdentity();
         Eigen::SimplicialCholesky<SpMat> chol(M-(time_step*Laplacian));
         height_map = chol.solve(M*height_map);
     }
