@@ -597,6 +597,14 @@ namespace CMU462 {
     
     void HalfedgeMesh::initializeVertices()
     {
+        computeIndicesAndAreas();
+        computeCotan();
+        initializeScalarMaps();
+        computeLaplacian();
+    }
+    
+    void HalfedgeMesh::computeIndicesAndAreas()
+    {
         M = SpMat(vertices.size(),vertices.size());
         vector<Triple> tripleList;
         
@@ -619,12 +627,14 @@ namespace CMU462 {
             i++;
         }
         M.setFromTriplets(tripleList.begin(),tripleList.end());
+    }
+    
+    void HalfedgeMesh::initializeScalarMaps()
+    {
         eulerian_scheme = SYMPLECTIC;
-        computeCotan();
         height_map = Eigen::VectorXd::Zero(vertices.size(),1);
         velocity_map = Eigen::VectorXd::Zero(vertices.size(),1);
         time_step = 0.2;
-        computeLaplacian();
     }
 
    const HalfedgeMesh& HalfedgeMesh :: operator=( const HalfedgeMesh& mesh )

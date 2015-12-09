@@ -588,6 +588,8 @@ namespace CMU462
          void build( const vector< vector<Index> >& polygons, const vector<Vector3D>& vertexPositions );
 
          void initializeVertices();
+         void initializeScalarMaps();
+         void computeIndicesAndAreas();
          void computeCotan();
          void set_initial_conditions();
          void computeLaplacian();
