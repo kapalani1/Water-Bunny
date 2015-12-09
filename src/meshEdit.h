@@ -226,7 +226,9 @@ class MeshEdit : public Renderer {
   // --  Private Variables.
   Scene* scene;
     
-  bool startAnimating = false;
+  enum equation { heat,wave, none};
+    
+  equation startAnimating = heat;
 
   vector<MeshNode> meshNodes;
 

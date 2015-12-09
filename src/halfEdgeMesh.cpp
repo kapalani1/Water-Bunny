@@ -567,14 +567,18 @@ namespace CMU462 {
     
     void HalfedgeMesh::update_height_map_wave()
     {
-        update_velocity_map_wave();
-        height_map = height_map + time_step*velocity_map;
-    }
-    
-    void HalfedgeMesh::update_velocity_map_wave()
-    {
-        velocity_map = velocity_map + time_step*Laplacian*height_map;
-        
+        if (eulerian_scheme == SYMPLECTIC) {
+            velocity_map = velocity_map + time_step*Laplacian*height_map;
+            height_map = height_map + time_step*velocity_map;
+        }
+        else if(eulerian_scheme == BACKWARD)
+        {
+            SpMat I = SpMat(vertices.size(),vertices.size());
+            I.setIdentity();
+            Eigen::SimplicialCholesky<SpMat> chol(I-(time_step*time_step*Laplacian));
+            height_map = chol.solve(height_map+time_step*velocity_map);
+            velocity_map =  velocity_map + time_step*Laplacian*height_map;
+        }
     }
     
     void HalfedgeMesh::add_random_point()
@@ -614,6 +618,7 @@ namespace CMU462 {
             i++;
         }
         M.setFromTriplets(tripleList.begin(),tripleList.end());
+        eulerian_scheme = SYMPLECTIC;
         computeCotan();
         height_map = Eigen::VectorXd::Zero(vertices.size(),1);
         velocity_map = Eigen::VectorXd::Zero(vertices.size(),1);

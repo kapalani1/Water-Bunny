@@ -73,7 +73,7 @@ namespace CMU462 {
       // to draw different types of mesh elements in various situations.
       initializeStyle();
        
-      startAnimating = false;
+      startAnimating = none;
    }
 
    void MeshEdit::initializeStyle( void )
@@ -108,10 +108,10 @@ namespace CMU462 {
    void MeshEdit::render()
    {
       update_camera();
-      if (startAnimating) {
-//          advanceByOneFrameHeat();
+      if (startAnimating == heat)
+          advanceByOneFrameHeat();
+      else if(startAnimating == wave)
           advanceByOneFrameWave();
-      }
       draw_meshes();
 
       // // Draw the helpful picking messages.
@@ -295,21 +295,26 @@ namespace CMU462 {
             break;
          case 'h':
          case 'H':
-              startAnimating = true;
-              break;
-         case 'a':
-         case 'A':
               add_random_point();
-              startAnimating = true;
+              startAnimating = heat;
               break;
          case 'w':
          case 'W':
               add_random_point();
-              startAnimating = true;
+              startAnimating = wave;
+              break;
          case ']':
               meshNodes[0].mesh.time_step *= 2;
-          case '[':
+              break;
+         case '[':
               meshNodes[0].mesh.time_step /= 2;
+              break;
+         case '1':
+              meshNodes[0].mesh.eulerian_scheme = SYMPLECTIC;
+              break;
+         case '2':
+              meshNodes[0].mesh.eulerian_scheme = BACKWARD;
+              break;
          default:
             break;
       }

@@ -161,6 +161,12 @@ typedef size_t Size;
 
 namespace CMU462
 {
+    
+   enum integtation_scheme
+   {
+       BACKWARD,
+       SYMPLECTIC
+   };
 
    typedef Eigen::SparseMatrix<double> SpMat; // declares a column-major sparse matrix type of double
    typedef Eigen::Triplet<double> Triple;
@@ -675,6 +681,8 @@ namespace CMU462
           SpMat M;
        
           double time_step = 0.2;
+       
+          integtation_scheme eulerian_scheme;
        
       protected:
 
