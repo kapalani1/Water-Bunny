@@ -1,7 +1,7 @@
 #include "meshEdit.h"
 
 #define PI 3.14159265
-#define SCALING_FACTOR 0.01
+#define SCALING_FACTOR 1
 
 #include <cmath>
 #include <random>
@@ -182,8 +182,8 @@ namespace CMU462 {
     
    void MeshEdit::advanceByOneFrame()
    {
-       meshNodes[0].mesh.computeLaplacian();
        //move each vertex by some height h by its original normal
+//       std::cout<<meshNodes[0].mesh.height_map<<std::endl;
        for(VertexIter v = meshNodes[0].mesh.verticesBegin();
            v!= meshNodes[0].mesh.verticesEnd();
            v++)
@@ -192,6 +192,7 @@ namespace CMU462 {
            v->position = (v->original_position +
                           (v->original_normal*ht*SCALING_FACTOR));
        }
+       meshNodes[0].mesh.update_height_map();
    }
 
    void MeshEdit::draw_meshes()

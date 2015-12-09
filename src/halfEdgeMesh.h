@@ -654,6 +654,7 @@ namespace CMU462
          EdgeIter       flipEdge( EdgeIter e ); ///< flip an edge, returning a pointer to the flipped edge
          VertexIter      splitEdge( EdgeIter e ); ///< split an edge, returning a pointer to the inserted midpoint vertex; the halfedge of this vertex should refer to one of the edges in the original mesh
          VertexIter   collapseEdge( EdgeIter e ); ///< collapse an edge, returning a pointer to the collapsed vertex
+         void update_height_map();
 
           /* Sparse Matrix that contains Laplacian */
           SpMat Laplacian;
@@ -661,12 +662,9 @@ namespace CMU462
           /* Height Map of the Mesh */
           Eigen::VectorXd height_map;
        
-          /* Diagonal Mass matrix vector */
-          Eigen::VectorXd mass_diagonal;
+          /* Diagonal Mass matrix */
+          SpMat M;
        
-          /* Vertices set by user and their corresponding height */
-          map <long,double> set_map;
-
       protected:
 
          /**
