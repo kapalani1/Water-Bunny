@@ -271,12 +271,10 @@ class MeshEdit : public Renderer {
   // Control functions.
   void update_camera();
   void draw_meshes();
-
-
-  //incremental upadte of vertex positions
-  void update_mesh();
     
   void advanceByOneFrame();
+    
+  void add_random_point();
 
   // Resets the camera to the canonical initial view position.
   void reset_camera();

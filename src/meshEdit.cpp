@@ -110,7 +110,6 @@ namespace CMU462 {
       update_camera();
       if (startAnimating) {
           advanceByOneFrame();
-          startAnimating = false;
       }
       draw_meshes();
 
@@ -176,23 +175,23 @@ namespace CMU462 {
 
    }
 
-   void MeshEdit::update_mesh()
+   void MeshEdit::add_random_point()
    {
+       meshNodes[0].mesh.add_random_point();
    }
     
    void MeshEdit::advanceByOneFrame()
    {
        //move each vertex by some height h by its original normal
-//       std::cout<<meshNodes[0].mesh.height_map<<std::endl;
+       meshNodes[0].mesh.update_height_map();
        for(VertexIter v = meshNodes[0].mesh.verticesBegin();
            v!= meshNodes[0].mesh.verticesEnd();
            v++)
        {
            double ht = meshNodes[0].mesh.height_map[v->index];
            v->position = (v->original_position +
-                          (v->original_normal*ht*SCALING_FACTOR));
+                          (v->original_normal*ht));
        }
-       meshNodes[0].mesh.update_height_map();
    }
 
    void MeshEdit::draw_meshes()
@@ -279,13 +278,19 @@ namespace CMU462 {
          case 'T':
             selectTwinHalfedge();
             break;
-         case 'l':
-         case 'L':
+         case 'h':
+         case 'H':
+              startAnimating = true;
+              break;
+         case 'a':
+         case 'A':
+              add_random_point();
               startAnimating = true;
               break;
          case ']':
-              startAnimating = true;
-              break;
+              meshNodes[0].mesh.time_step *= 2;
+          case '[':
+              meshNodes[0].mesh.time_step /= 2;
          default:
             break;
       }

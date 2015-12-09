@@ -443,12 +443,12 @@ namespace CMU462 {
            for (auto it = weights.begin(); it != weights.end(); it++) {
                long index = it->first;
                double weight = it->second;
-               //Matrix(i,j) = - normalizedWeight
+               //Matrix(i,j) = normalizedWeight
                tripleList.push_back(Triple(v->index,index,weight/(total_weight*1.0)));
            }
        }
 
-       //construct Laplacian and solve
+       //construct Laplacian
        Laplacian.setFromTriplets(tripleList.begin(),tripleList.end());
        /* BROKEN *
        
@@ -561,10 +561,13 @@ namespace CMU462 {
     
     void HalfedgeMesh::update_height_map()
     {
-        M.setIdentity();
-        double time_step = 1;
         Eigen::SimplicialCholesky<SpMat> chol(M-(time_step*Laplacian));
         height_map = chol.solve(M*height_map);
+    }
+    
+    void HalfedgeMesh::add_random_point()
+    {
+        height_map[rand() % vertices.size() + 1] = (rand()/(RAND_MAX*1.0));
     }
     
    void HalfedgeMesh::set_initial_conditions()
@@ -601,8 +604,8 @@ namespace CMU462 {
         M.setFromTriplets(tripleList.begin(),tripleList.end());
         computeCotan();
         height_map = Eigen::VectorXd::Zero(vertices.size(),1);
+        time_step = 0.2;
         computeLaplacian();
-        set_initial_conditions();
     }
 
    const HalfedgeMesh& HalfedgeMesh :: operator=( const HalfedgeMesh& mesh )
