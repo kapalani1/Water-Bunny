@@ -478,9 +478,8 @@ namespace CMU462
         for( VertexIter v = mesh.verticesBegin(); v != mesh.verticesEnd(); v++ )
         {
             v->position = v->newPosition;
-            v->original_position = v->position;
-            v->original_normal = v->normal();
         }
+        mesh.initializeVertices();
     }
     
     // Given an edge, the constructor for EdgeRecord finds the
@@ -629,12 +628,7 @@ namespace CMU462
             
             edgeQueue.pop();
         }
-        
-        for (VertexIter v = mesh.verticesBegin(); v!= mesh.verticesEnd(); v++) {
-            
-            v->original_position = v->position;
-            v->original_normal = v->normal();
-        }
+        mesh.initializeVertices();
     }
     
     void Vertex::computeCentroid( void )
@@ -817,11 +811,6 @@ namespace CMU462
                 }
             }
         }
-        
-        for (VertexIter v = mesh.verticesBegin(); v!= mesh.verticesEnd(); v++) {
-            
-            v->original_position = v->position;
-            v->original_normal = v->normal();
-        }
+        mesh.initializeVertices();
     }
 }
