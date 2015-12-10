@@ -145,6 +145,8 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 
 #include "CMU462/CMU462.h" // Standard 462 Vectors, etc.
 #include "Eigen/Sparse"

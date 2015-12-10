@@ -584,7 +584,7 @@ namespace CMU462 {
     
     void HalfedgeMesh::add_random_point()
     {
-        height_map[rand() % vertices.size() + 1] = (rand()/(RAND_MAX*1.0));
+        height_map[rand() % vertices.size()] = (rand()/(RAND_MAX*1.0));
     }
     
    void HalfedgeMesh::set_initial_conditions()
@@ -597,6 +597,7 @@ namespace CMU462 {
     
     void HalfedgeMesh::initializeVertices()
     {
+        srand (time(NULL));
         computeIndicesAndAreas();
         computeCotan();
         initializeScalarMaps();
