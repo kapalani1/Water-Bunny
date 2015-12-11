@@ -424,7 +424,6 @@ namespace CMU462 {
     void MeshEdit::advanceByOneFrameMeanCurvature()
     {
         meshNodes[0].mesh.update_positions_curvature_flow();
-        startAnimating = curvature;
     }
     
    void MeshEdit::draw_meshes()
@@ -574,7 +573,20 @@ namespace CMU462 {
               break;
          case 'm':
          case 'M':
-              advanceByOneFrameMeanCurvature();
+              if (startAnimating != curvature) {
+                  advanceByOneFrameMeanCurvature();
+                  startAnimating = curvature;
+                  std::cout<<"Starting Mean curvature flow"<<std::endl;
+              }
+              else
+              {
+                  startAnimating = none;
+                  std::cout<<"Ending mean curvature flow"<<std::endl;
+                  for (VertexIter v = meshNodes[0].mesh.verticesBegin(); v != meshNodes[0].mesh.verticesEnd(); v++) {
+                      v->original_position = v->position;
+                      v->original_normal = v->normal();
+                  }
+              }
               break;
          case '.':
          case '>':
