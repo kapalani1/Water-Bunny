@@ -450,129 +450,6 @@ namespace CMU462 {
 
        //construct Laplacian
        Laplacian.setFromTriplets(tripleList.begin(),tripleList.end());
-
-       /*
-       for (VertexIter v = vertices.begin(); v!= vertices.end(); v++) {
-           
-           double d = 1.0/v->degree();
-           HalfedgeIter start = v->halfedge();
-           HalfedgeIter h = start;
-           Laplacian.coeffRef(v->index,v->index) = -1;
-           do
-           {
-               Laplacian.coeffRef(v->index,h->twin()->vertex()->index) = d;
-               h = h->twin()->next();
-           } while (h != start);
-       }
-        */
-       
-       /* BROKEN *
-       
-       //Laplacian is of size (n+m)xn where m is the number of additional constraints
-       Laplacian = SpMat(vertices.size()+set_map.size(),vertices.size());
-       height_map = Eigen::VectorXd::Zero(vertices.size()+set_map.size(),1);
-              
-       vector<Triple> tripleList;
-       for (VertexIter v = vertices.begin(); v!= vertices.end(); v++) {
-           tripleList.push_back(Triple(v->index,v->index,1));
-           double sum = 0;
-           //populate neighboring elements
-           vector< pair<long,double> > weights;
-           HalfedgeIter start = v->halfedge();
-           HalfedgeIter h = start;
-           do
-           {
-               double cot_alpha = h->cotan;
-               double cot_beta = h->twin()->cotan;
-               std::pair <long,double> tuple;
-               tuple = make_pair(h->twin()->vertex()->index,cot_alpha+cot_beta);
-               sum+=((cot_alpha+cot_beta)/2.0);
-//               tuple = make_pair(h->twin()->vertex()->index,1);
-//               sum+=1.0;
-               weights.push_back(tuple);
-               h = h->twin()->next();
-           } while (h != start);
-           
-           for (auto it = weights.begin(); it != weights.end(); it++) {
-               long index = it->first;
-               double weight = it->second;
-               //Matrix(i,j) = - normalizedWeight
-               tripleList.push_back(Triple(v->index,index,-weight/(sum*1.0)));
-           }
-       }
-       
-       //add additional constraints that the user set
-       Size vs = vertices.size();
-       int count = 0;
-       for (auto it = set_map.begin(); it != set_map.end(); it++) {
-           Size index = vs+count;
-           //add row of identity matrix
-           tripleList.push_back(Triple(index,it->first,1));
-           //add element to the height map
-           height_map[index] = it->second;
-           count++;
-       }
-       
-       //construct Laplacian and solve
-       Laplacian.setFromTriplets(tripleList.begin(),tripleList.end());
-       //solving A^TAx = A^b in least squares sense
-       Eigen::SimplicialCholesky<SpMat> chol(Laplacian.transpose()*Laplacian);
-       height_map = chol.solve(Laplacian.transpose()*height_map);
-       
-       //reset all the anchor points that the user set
-       for (auto it = set_map.begin(); it != set_map.end(); it++) {
-           height_map[it->first] = it->second;
-       }
-       
-       std::cout<<height_map<<std::endl;
-
-       Laplacian = SpMat(vertices.size(),vertices.size());
-       height_map = Eigen::VectorXd::Zero(vertices.size(),1);
-
-       vector<Triple> tripleList;
-       for (VertexIter v = vertices.begin(); v != vertices.end(); v++) {
-           tripleList.push_back(Triple(v->index,v->index,1));
-           if (set_map.find(v->index) == set_map.end()) {
-               double sum = 0;
-               //populate neighboring elements
-               vector< pair<long,double> > weights;
-               HalfedgeIter start = v->halfedge();
-               HalfedgeIter h = start;
-               do
-               {
-                   double cot_alpha = h->cotan;
-                   double cot_beta = h->twin()->cotan;
-                   std::pair <long,double> tuple;
-//                   tuple = make_pair(h->twin()->vertex()->index,cot_alpha+cot_beta);
-//                   sum+=((cot_alpha+cot_beta)/2.0);
-                   tuple = make_pair(h->twin()->vertex()->index,1);
-                   sum+=1.0;
-
-                   weights.push_back(tuple);
-                   h = h->twin()->next();
-               } while (h != start);
-
-               for (auto it = weights.begin(); it != weights.end(); it++) {
-                   long index = it->first;
-                   double weight = it->second;
-                   //Matrix(i,j) = - normalizedWeight
-                   tripleList.push_back(Triple(v->index,index,-weight/(sum*1.0)));
-               }
-           }
-           else
-           {
-               height_map[v->index] = set_map[v->index];
-           }
-       }
-       
-       
-       //construct Laplacian and solve
-    Laplacian.setFromTriplets(tripleList.begin(),tripleList.end());
-       Eigen::SimplicialCholesky<SpMat> chol(Laplacian);
-       height_map = chol.solve(height_map);
-       
-       std::cout<<height_map<<std::endl;
-        */
     }
     
     void HalfedgeMesh::update_height_map_heat()
@@ -663,6 +540,7 @@ namespace CMU462 {
     
     void HalfedgeMesh::update_positions_curvature_flow()
     {
+        double lambda = 1.8;
         Eigen::MatrixXd positionsVector(vertices.size(),3);
         for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
             positionsVector(v->index,0) = v->position.x;
@@ -671,14 +549,11 @@ namespace CMU462 {
         }
         
         M.setIdentity();
-//        Eigen::SimplicialCholesky<SpMat> chol(M-(0.01*Laplacian));
-//        Eigen::VectorXd new_positions;
-//        positionsVector = chol.solve(positionsVector);
         Eigen::MatrixXd new_positions(vertices.size(),3);
         if (time_step>0.5) {
             time_step = 0.5;
         }
-        positionsVector = (M+time_step*Laplacian)*positionsVector;
+        positionsVector = (M+time_step*lambda*Laplacian)*positionsVector;
         
         for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
             v->position.x = positionsVector(v->index,0);

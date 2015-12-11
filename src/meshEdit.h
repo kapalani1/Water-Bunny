@@ -281,7 +281,6 @@ class MeshEdit : public Renderer {
   void advanceByOneFrameWave();
   void advanceByOneFrameLaplacian();
   void advanceByOneFrameMeanCurvature();
-  GLuint compile_phong_shader();
 
   void add_random_point();
   void update_positions_in_set_map();
@@ -311,8 +310,6 @@ class MeshEdit : public Renderer {
   DrawStyle selectStyle;  // style for currently selected element
   Color text_color;
     
-  GLuint phong;
-
   // -- Mouse input.
   // -- User Input variables.
   bool mouse_rotate;
