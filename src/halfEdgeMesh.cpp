@@ -582,6 +582,60 @@ namespace CMU462 {
         }
     }
     
+    void HalfedgeMesh::update_height_map_laplacian()
+    {
+//        //set the height map to be the new height positions
+        Eigen::ArrayXd error(height_map.size(),1);
+        error = laplacian_height_map - height_map;
+        for (long i = 0; i<vertices.size(); i++) {
+            //only update the vertices that have significant error
+            if (error[i]>0.01) {
+                height_map[i] += (laplacian_height_map[i]-height_map[i])/100;
+            }
+        }
+    }
+    
+    void HalfedgeMesh::compute_height_map_laplacian()
+    {
+        Eigen::VectorXd temp = Eigen::VectorXd::Zero(vertices.size(),1);
+        
+        for (auto it = set_map.begin(); it != set_map.end(); it++)
+        {
+            temp[it->first] = it->second;
+        }
+        
+        for (VertexIter v = verticesBegin(); v != verticesEnd(); v++) {
+            
+            //NOT an initial condition
+            if (set_map.find(v->index) == set_map.end())
+            {
+                double numerator = 0;
+                double total_weight = 0;
+                //populate neighboring elements
+                
+                HalfedgeIter start = v->halfedge();
+                HalfedgeIter h = start;
+                do
+                {
+                    double cot_alpha = h->cotan;
+                    double cot_beta = h->twin()->cotan;
+                    double weight = (cot_alpha+cot_beta);
+                    
+                    total_weight += weight;
+                    numerator += weight*temp[h->twin()->vertex()->index];
+                    
+                    h = h->twin()->next();
+                } while (h != start);
+                temp[v->index] = numerator/total_weight;
+            }
+            else
+            {
+                height_map[v->index] = set_map[v->index];
+            }
+        }
+        laplacian_height_map = temp;
+    }
+    
     void HalfedgeMesh::add_random_point()
     {
         height_map[rand() % vertices.size()] = (rand()/(RAND_MAX*1.0));
@@ -590,8 +644,8 @@ namespace CMU462 {
    void HalfedgeMesh::set_initial_conditions()
    {
        //will set the height map here
-       height_map[0] = 5;
-       height_map[prev(verticesEnd())->index] = 5;
+       set_map[rand()%vertices.size()] = rand()/(RAND_MAX*1.0);
+       set_map[rand()%vertices.size()] = rand()/(RAND_MAX*1.0);
    }
     
     

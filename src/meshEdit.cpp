@@ -112,6 +112,8 @@ namespace CMU462 {
           advanceByOneFrameHeat();
       else if(startAnimating == wave)
           advanceByOneFrameWave();
+      else if(startAnimating == laplacian)
+          advanceByOneFrameLaplacian();
       draw_meshes();
 
       // // Draw the helpful picking messages.
@@ -209,6 +211,26 @@ namespace CMU462 {
         }
     }
     
+    void MeshEdit::advanceByOneFrameLaplacian()
+    {
+        if (solve_laplacian) {
+            solve_laplacian = false;
+            meshNodes[0].mesh.set_initial_conditions();
+            meshNodes[0].mesh.compute_height_map_laplacian();
+        }
+//        //move each vertex by some height h by its original normal
+        meshNodes[0].mesh.update_height_map_laplacian();
+        
+        for(VertexIter v = meshNodes[0].mesh.verticesBegin();
+            v!= meshNodes[0].mesh.verticesEnd();
+            v++)
+        {
+            double ht = meshNodes[0].mesh.height_map[v->index];
+            v->position = (v->original_position +
+                           (v->original_normal*ht));
+        }
+    }
+    
    void MeshEdit::draw_meshes()
    {
       for( vector<MeshNode>::iterator n = meshNodes.begin(); n != meshNodes.end(); n++ )
@@ -293,8 +315,15 @@ namespace CMU462 {
          case 'T':
             selectTwinHalfedge();
             break;
+         case 'l':
+         case 'L':
+              solve_laplacian = true;
+              advanceByOneFrameLaplacian();
+              startAnimating = laplacian;
+              break;
          case 'h':
          case 'H':
+              meshNodes[0].mesh.eulerian_scheme = BACKWARD;
               add_random_point();
               startAnimating = heat;
               break;
@@ -1271,10 +1300,10 @@ namespace CMU462 {
 
       // Edges are drawn with flat shading.
       glDisable(GL_LIGHTING);
-      drawEdges( mesh );
+//      drawEdges( mesh );
 
       drawVertices( mesh );
-      drawHalfedges( mesh );
+//      drawHalfedges( mesh );
    }
 
    // Sets the current OpenGL color/style of a given mesh element, according to which elements are currently selected and hovered.

@@ -150,6 +150,7 @@
 
 #include "CMU462/CMU462.h" // Standard 462 Vectors, etc.
 #include "Eigen/Sparse"
+#include "Eigen/OrderingMethods"
 #include "mesh.h"
 
 using namespace std;
@@ -519,7 +520,7 @@ namespace CMU462
         long index;
               
         double dual_area=0.0;
-       
+              
       protected:
          HalfedgeIter _halfedge; ///< one of the halfedges "rooted" or "based" at this vertex
    };
@@ -671,6 +672,10 @@ namespace CMU462
          void update_velocity_map_wave();
        
          void add_random_point();
+       
+         void update_height_map_laplacian();
+       
+         void compute_height_map_laplacian();
 
           /* Sparse Matrix that contains Laplacian */
           SpMat Laplacian;
@@ -678,8 +683,14 @@ namespace CMU462
           /* Height Map of the Mesh */
           Eigen::VectorXd height_map;
        
-          /* Height Map of the Mesh */
+          /* Velocity Map of the Mesh */
           Eigen::VectorXd velocity_map;
+       
+          /* Height Map for vertices for Laplacian */
+          Eigen::VectorXd laplacian_height_map;
+              
+          /* Map containing the initial displacements set by user */
+          std::map < long, double > set_map;
        
           /* Diagonal Mass matrix */
           SpMat M;
@@ -687,6 +698,9 @@ namespace CMU462
           double time_step = 0.2;
        
           integtation_scheme eulerian_scheme;
+       
+          /* Boolean to determine if we need to solve Laplacian */
+          bool solve_Laplacian = false;
        
       protected:
 

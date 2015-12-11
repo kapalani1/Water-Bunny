@@ -226,9 +226,11 @@ class MeshEdit : public Renderer {
   // --  Private Variables.
   Scene* scene;
     
-  enum equation { heat,wave, none};
+  enum equation {laplacian,heat,wave,none};
     
   equation startAnimating = heat;
+    
+  bool solve_laplacian = false;
 
   vector<MeshNode> meshNodes;
 
@@ -261,7 +263,6 @@ class MeshEdit : public Renderer {
 
   int light_num;
 
-
   // -- Helper functions.
 
   // Initialization functions to get the opengl cooking with oil.
@@ -276,6 +277,7 @@ class MeshEdit : public Renderer {
     
   void advanceByOneFrameHeat();
   void advanceByOneFrameWave();
+  void advanceByOneFrameLaplacian();
     
   void add_random_point();
 
