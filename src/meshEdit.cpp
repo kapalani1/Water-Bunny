@@ -85,6 +85,7 @@ namespace CMU462 {
        }
        
       startAnimating = none;
+      scale = 1.0;
    }
     
     GLuint MeshEdit::compile_phong_shader()
@@ -563,7 +564,7 @@ namespace CMU462 {
               if (selectedFeature.element->getVertex() != NULL)
               {
                   Vertex *v = selectedFeature.element-> getVertex();
-                  double height = rand()/(RAND_MAX*1.0);
+                  double height = rand()/(RAND_MAX*1.0)*scale;
                   meshNodes[0].mesh.set_map[v->index] = height;
               }
               else
@@ -574,6 +575,14 @@ namespace CMU462 {
          case 'm':
          case 'M':
               advanceByOneFrameMeanCurvature();
+              break;
+         case '.':
+         case '>':
+              scale*=2;
+              break;
+         case ',':
+         case '<':
+              scale /=2;
               break;
          default:
             break;

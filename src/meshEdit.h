@@ -231,6 +231,8 @@ class MeshEdit : public Renderer {
   equation startAnimating = heat;
     
   bool solve_laplacian = false;
+    
+  double scale = 1.0;
 
   vector<MeshNode> meshNodes;
 

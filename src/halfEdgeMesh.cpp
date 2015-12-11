@@ -450,6 +450,21 @@ namespace CMU462 {
 
        //construct Laplacian
        Laplacian.setFromTriplets(tripleList.begin(),tripleList.end());
+
+       /*
+       for (VertexIter v = vertices.begin(); v!= vertices.end(); v++) {
+           
+           double d = 1.0/v->degree();
+           HalfedgeIter start = v->halfedge();
+           HalfedgeIter h = start;
+           Laplacian.coeffRef(v->index,v->index) = -1;
+           do
+           {
+               Laplacian.coeffRef(v->index,h->twin()->vertex()->index) = d;
+               h = h->twin()->next();
+           } while (h != start);
+       }
+        */
        
        /* BROKEN *
        
@@ -656,9 +671,14 @@ namespace CMU462 {
         }
         
         M.setIdentity();
-        Eigen::SimplicialCholesky<SpMat> chol(M-(0.1*Laplacian));
-        Eigen::VectorXd new_positions;
-        positionsVector = chol.solve(positionsVector);
+//        Eigen::SimplicialCholesky<SpMat> chol(M-(0.01*Laplacian));
+//        Eigen::VectorXd new_positions;
+//        positionsVector = chol.solve(positionsVector);
+        Eigen::MatrixXd new_positions(vertices.size(),3);
+        if (time_step>0.5) {
+            time_step = 0.5;
+        }
+        positionsVector = (M+time_step*Laplacian)*positionsVector;
         
         for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
             v->position.x = positionsVector(v->index,0);
@@ -668,7 +688,6 @@ namespace CMU462 {
         
         computeCotan();
         computeLaplacian();
-        std::cout<<"Done smoothing "<<std::endl;
     }
     
     void HalfedgeMesh::add_random_point()
