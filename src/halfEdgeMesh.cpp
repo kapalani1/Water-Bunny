@@ -560,7 +560,7 @@ namespace CMU462 {
     }
     
     void HalfedgeMesh::update_height_map_heat()
-    {
+    {        
         M.setIdentity();
         Eigen::SimplicialCholesky<SpMat> chol(M-(time_step*Laplacian));
         height_map = chol.solve(M*height_map);
@@ -568,6 +568,11 @@ namespace CMU462 {
     
     void HalfedgeMesh::update_height_map_wave()
     {
+        for (auto it = set_map.begin(); it != set_map.end(); it++)
+        {
+            height_map[it->first] = it->second;
+        }
+        
         if (eulerian_scheme == SYMPLECTIC) {
             velocity_map = velocity_map + time_step*Laplacian*height_map;
             height_map = height_map + time_step*velocity_map;
@@ -582,17 +587,26 @@ namespace CMU462 {
         }
     }
     
-    void HalfedgeMesh::update_height_map_laplacian()
+    bool HalfedgeMesh::update_height_map_laplacian()
     {
 //        //set the height map to be the new height positions
         Eigen::ArrayXd error(height_map.size(),1);
         error = laplacian_height_map - height_map;
+        long count = 0;
         for (long i = 0; i<vertices.size(); i++) {
             //only update the vertices that have significant error
             if (error[i]>0.01) {
                 height_map[i] += (laplacian_height_map[i]-height_map[i])/100;
+                count++;
             }
         }
+        
+        if (!count) {
+            set_map.clear();
+            return true;
+        }
+        
+        return false;
     }
     
     void HalfedgeMesh::compute_height_map_laplacian()

@@ -673,7 +673,7 @@ namespace CMU462
        
          void add_random_point();
        
-         void update_height_map_laplacian();
+         bool update_height_map_laplacian();
        
          void compute_height_map_laplacian();
 

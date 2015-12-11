@@ -28,7 +28,7 @@ namespace CMU462 {
       middle_down = false;
       mouse_rotate = false;
 
-      showHUD = true;
+      showHUD = false;
       camera_angles = Vector3D(0.0, 0.0, 0.0);
 
       // 3D applications really like enabling the depth test,
@@ -186,6 +186,10 @@ namespace CMU462 {
    void MeshEdit::advanceByOneFrameHeat()
    {
        //move each vertex by some height h by its original normal
+       for (auto it = meshNodes[0].mesh.set_map.begin(); it != meshNodes[0].mesh.set_map.end(); it++)
+       {
+           meshNodes[0].mesh.height_map[it->first] = it->second;
+       }
        meshNodes[0].mesh.update_height_map_heat();
        for(VertexIter v = meshNodes[0].mesh.verticesBegin();
            v!= meshNodes[0].mesh.verticesEnd();
@@ -195,11 +199,17 @@ namespace CMU462 {
            v->position = (v->original_position +
                           (v->original_normal*ht));
        }
+       meshNodes[0].mesh.set_map.clear();
    }
     
     void MeshEdit::advanceByOneFrameWave()
     {
         //move each vertex by some height h by its original normal
+        //move each vertex by some height h by its original normal
+        for (auto it = meshNodes[0].mesh.set_map.begin(); it != meshNodes[0].mesh.set_map.end(); it++)
+        {
+            meshNodes[0].mesh.height_map[it->first] = it->second;
+        }
         meshNodes[0].mesh.update_height_map_wave();
         for(VertexIter v = meshNodes[0].mesh.verticesBegin();
             v!= meshNodes[0].mesh.verticesEnd();
@@ -209,17 +219,21 @@ namespace CMU462 {
             v->position = (v->original_position +
                            (v->original_normal*ht));
         }
+        meshNodes[0].mesh.set_map.clear();
     }
     
     void MeshEdit::advanceByOneFrameLaplacian()
     {
         if (solve_laplacian) {
             solve_laplacian = false;
-            meshNodes[0].mesh.set_initial_conditions();
             meshNodes[0].mesh.compute_height_map_laplacian();
         }
 //        //move each vertex by some height h by its original normal
-        meshNodes[0].mesh.update_height_map_laplacian();
+        if(meshNodes[0].mesh.update_height_map_laplacian())
+        {
+            startAnimating = none;
+            solve_laplacian = false;
+        }
         
         for(VertexIter v = meshNodes[0].mesh.verticesBegin();
             v!= meshNodes[0].mesh.verticesEnd();
@@ -267,6 +281,16 @@ namespace CMU462 {
    string MeshEdit::info() {
 	 return "Assignment 2: MeshEdit";
    }
+    
+    void MeshEdit::update_positions_in_set_map()
+    {
+        for (auto it = meshNodes[0].mesh.set_map.begin(); it != meshNodes[0].mesh.set_map.end(); it++) {
+            
+            VertexIter v = meshNodes[0].mesh.verticesBegin();
+            advance(v,it->first);
+            v->position = v->original_position + it->second*v->original_normal;
+        }
+    }
 
    void MeshEdit::key_event( char key )
    {
@@ -317,6 +341,7 @@ namespace CMU462 {
             break;
          case 'l':
          case 'L':
+              update_positions_in_set_map();
               solve_laplacian = true;
               advanceByOneFrameLaplacian();
               startAnimating = laplacian;
@@ -324,12 +349,17 @@ namespace CMU462 {
          case 'h':
          case 'H':
               meshNodes[0].mesh.eulerian_scheme = BACKWARD;
-              add_random_point();
+              if (!meshNodes[0].mesh.set_map.size()) {
+                  add_random_point();
+              }
               startAnimating = heat;
               break;
          case 'w':
          case 'W':
-              add_random_point();
+              meshNodes[0].mesh.eulerian_scheme = SYMPLECTIC;
+              if (!meshNodes[0].mesh.set_map.size()) {
+                  add_random_point();
+              }
               startAnimating = wave;
               break;
          case ']':
@@ -343,6 +373,20 @@ namespace CMU462 {
               break;
          case '2':
               meshNodes[0].mesh.eulerian_scheme = BACKWARD;
+              break;
+         case 'k':
+         case 'K':
+              startAnimating = none;
+              if (selectedFeature.element->getVertex() != NULL)
+              {
+                  Vertex *v = selectedFeature.element-> getVertex();
+                  double height = rand()/(RAND_MAX*1.0);
+                  meshNodes[0].mesh.set_map[v->index] = height;
+              }
+              else
+              {
+                  std::cout<<"Must select a vertex to displace"<<std::endl;
+              }
               break;
          default:
             break;
@@ -647,7 +691,11 @@ namespace CMU462 {
 	   Vertex* v = selectedFeature.element -> getVertex();
        if(!mouse_rotate && v != NULL)
 	   {
+         Vector3D temp = v->position;
 		 dragPosition(dx, dy, v->position);
+         double height = (v->position - temp).norm()*50;
+         height = std::max(0.0,std::min(height,1.0));
+         meshNodes[0].mesh.set_map[v->index] = height;
 		 return;
 	   }
 
@@ -980,7 +1028,7 @@ namespace CMU462 {
 	  P(r, c) = projMatrix [4*c + r];
 	  M(r, c) = modelMatrix[4*c + r];
     }
-
+      
 	Vector4D pos = Vector4D(position);
 	pos.w = 1.0;
 
@@ -1004,7 +1052,6 @@ namespace CMU462 {
 	pos = M.inv()*P.inv()*pos;
 
 	position = pos.to3D();
-
 
   }
 
@@ -1400,7 +1447,13 @@ namespace CMU462 {
       v = hoveredFeature.element->getVertex();
       if( v != NULL )
       {
-         setElementStyle( v );
+         if (meshNodes[0].mesh.set_map.find(v->index) != meshNodes[0].mesh.set_map.end())
+            {
+                Color c = Color(0.0,1.0,0.0);
+                setColor(c);
+            }
+         else
+             setElementStyle( v );
 
          glBegin( GL_POINTS );
          Vector3D p = v->position;
@@ -1412,7 +1465,13 @@ namespace CMU462 {
       v = selectedFeature.element->getVertex();
       if( v != NULL )
       {
-         setElementStyle( v );
+          if (meshNodes[0].mesh.set_map.find(v->index) != meshNodes[0].mesh.set_map.end())
+          {
+              Color c = Color(0.0,1.0,0.0);
+              setColor(c);
+          }
+          else
+              setElementStyle( v );
 
          glBegin( GL_POINTS );
          Vector3D p = v->position;

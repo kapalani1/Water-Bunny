@@ -280,6 +280,7 @@ class MeshEdit : public Renderer {
   void advanceByOneFrameLaplacian();
     
   void add_random_point();
+  void update_positions_in_set_map();
 
   // Resets the camera to the canonical initial view position.
   void reset_camera();
