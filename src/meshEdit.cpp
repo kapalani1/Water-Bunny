@@ -20,7 +20,7 @@ namespace CMU462 {
 
       // Don't have anything selected initially.
       selectedFeature.invalidate();
-       hoveredFeature.invalidate();
+      hoveredFeature.invalidate();
 
       // Set the integer bit vector representing which keys are down.
       left_down   = false;
@@ -36,6 +36,7 @@ namespace CMU462 {
       // front of triangles that are farther away.
       /* Use depth buffering for hidden surface elimination. */
       glEnable(GL_DEPTH_TEST);
+      glShadeModel(GL_SMOOTH);
 
       // FIXME!
       // -- Setup some temporary working lights for now and resolve
@@ -73,8 +74,179 @@ namespace CMU462 {
       // to draw different types of mesh elements in various situations.
       initializeStyle();
        
+       phong = compile_phong_shader();
+       if(phong)
+       {
+           std::cout<<"Yay"<<std::endl;
+       }
+       else
+       {
+           std::cout<<"No"<<std::endl;
+       }
+       
       startAnimating = none;
    }
+    
+    GLuint MeshEdit::compile_phong_shader()
+    
+    {
+        // create the shaders
+        GLuint vert_shader = glCreateShader(GL_VERTEX_SHADER);
+        GLuint frag_shader = glCreateShader(GL_FRAGMENT_SHADER);
+        
+        const char *vert_shader_src = "#version 120"
+        "\nattribute vec4 v_coord;"
+        "\nattribute vec3 v_normal;"
+        "\nvarying vec4 position;  // position of the vertex (and fragment) in world space"
+        "\nvarying vec3 varyingNormalDirection;  // surface normal vector in world space"
+        "\nuniform mat4 m, v, p;"
+        "\nuniform mat3 m_3x3_inv_transp;"
+        
+        "\nvoid main()"
+        "\n{"
+        "\n  position = m * v_coord;"
+        "\n  varyingNormalDirection = normalize(m_3x3_inv_transp * v_normal);"
+        "\n  mat4 mvp = p*v*m;"
+        "\n  gl_Position = mvp * v_coord;"
+        "\n}";
+        
+        const char *frag_shader_src = "#version 120"
+        "\nvarying vec4 position;"
+        "\nvarying vec3 varyingNormalDirection;"
+        "\nuniform mat4 m, v, p;"
+        "\nuniform mat4 v_inv;"
+        "\nstruct lightSource"
+        "\n{"
+        "\n  vec4 position;"
+        "\n  vec4 diffuse;"
+        "\n  vec4 specular;"
+        "\n  float constantAttenuation, linearAttenuation, quadraticAttenuation;"
+        "\n  float spotCutoff, spotExponent;"
+        "\n  vec3 spotDirection;"
+        "\n};"
+        "\nlightSource light0 = lightSource("
+        "\n  vec4(0.0,  1.0,  2.0, 1.0),"
+        "\n  vec4(1.0,  1.0,  1.0, 1.0),"
+        "\n  vec4(1.0,  1.0,  1.0, 1.0),"
+        "\n  0.0, 1.0, 0.0,"
+        "\n  180.0, 0.0,"
+        "\n  vec3(0.0, 0.0, 0.0)"
+        "\n);"
+        "\nvec4 scene_ambient = vec4(0.2, 0.2, 0.2, 1.0);"
+        "\nstruct material"
+        "\n{"
+        "\n  vec4 ambient;"
+        "\n  vec4 diffuse;"
+        "\n  vec4 specular;"
+        "\n  float shininess;"
+        "\n};"
+        "\nmaterial frontMaterial = material("
+        "\n  vec4(0.2, 0.2, 0.2, 1.0),"
+        "\n  vec4(1.0, 0.8, 0.8, 1.0),"
+        "\n  vec4(1.0, 1.0, 1.0, 1.0),"
+        "\n  5.0"
+        "\n);"
+        "\nvoid main()"
+        "\n{"
+        "\n  vec3 normalDirection = normalize(varyingNormalDirection);"
+        "\n  vec3 viewDirection = normalize(vec3(v_inv * vec4(0.0, 0.0, 0.0, 1.0) - position));"
+        "\n  vec3 lightDirection;"
+        "\n  float attenuation;"
+        "\n  "
+        "\n  if (0.0 == light0.position.w) // directional light?"
+        "\n    {"
+        "\n      attenuation = 1.0; // no attenuation"
+        "\n      lightDirection = normalize(vec3(light0.position));"
+        "\n    } "
+        "\n  else // point light or spotlight (or other kind of light) "
+        "\n    {"
+        "\n      vec3 positionToLightSource = vec3(light0.position - position);"
+        "\n      float distance = length(positionToLightSource);"
+        "\n      lightDirection = normalize(positionToLightSource);"
+        "\n      attenuation = 1.0 / (light0.constantAttenuation"
+        "\n                           + light0.linearAttenuation * distance"
+        "\n                           + light0.quadraticAttenuation * distance * distance); "
+        "\n      if (light0.spotCutoff <= 90.0) // spotlight?"
+        "\n  {"
+        "\n    float clampedCosine = max(0.0, dot(-lightDirection, light0.spotDirection));"
+        "\n    if (clampedCosine < cos(radians(light0.spotCutoff)))"
+        "\n      {"
+        "\n        attenuation = 0.0;"
+        "\n      }"
+        "\n    else"
+        "\n      {"
+        "\n        attenuation = attenuation * pow(clampedCosine, light0.spotExponent);  "
+        "\n      }"
+        "\n  }"
+        "\n    }"
+        "\n  vec3 ambientLighting = vec3(scene_ambient) * vec3(frontMaterial.ambient);"
+        "\n  vec3 diffuseReflection = attenuation"
+        "\n    * vec3(light0.diffuse) * vec3(frontMaterial.diffuse)"
+        "\n    * max(0.0, dot(normalDirection, lightDirection));"
+        "\n  vec3 specularReflection;"
+        "\n  if (dot(normalDirection, lightDirection) < 0.0)"
+        "\n    {"
+        "\n      specularReflection = vec3(0.0, 0.0, 0.0);"
+        "\n    }"
+        "\n  else"
+        "\n    {"
+        "\n      specularReflection = attenuation * vec3(light0.specular) * vec3(frontMaterial.specular) "
+        "\n  * pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), frontMaterial.shininess);"
+        "\n    }"
+        "\n  gl_FragColor = vec4(ambientLighting + diffuseReflection + specularReflection, 1.0);"
+        "\n}";
+        
+        GLint result = GL_FALSE;
+        int info_length;
+    
+        // compile Vertex Shader
+        glShaderSource(vert_shader, 1, &vert_shader_src, NULL);
+        glCompileShader(vert_shader);
+        
+        // check Vertex Shader
+        glGetShaderiv(vert_shader, GL_COMPILE_STATUS, &result);
+        glGetShaderiv(vert_shader, GL_INFO_LOG_LENGTH, &info_length);
+        if ( info_length > 0 ){
+            vector<char> vert_shader_errmsg(info_length+1);
+            glGetShaderInfoLog(vert_shader, info_length, NULL, &vert_shader_errmsg[0]);
+            printf("%s\n", &vert_shader_errmsg[0]);
+        }
+        
+        // compile Fragment Shader
+        glShaderSource(frag_shader, 1, &frag_shader_src, NULL);
+        glCompileShader(frag_shader);
+        
+        // check Fragment Shader
+        glGetShaderiv(frag_shader, GL_COMPILE_STATUS, &result);
+        glGetShaderiv(frag_shader, GL_INFO_LOG_LENGTH, &info_length);
+        if ( info_length > 0 ){
+            vector<char> frag_shader_errmsg(info_length+1);
+            glGetShaderInfoLog(frag_shader, info_length, NULL, &frag_shader_errmsg[0]);
+            printf("%s\n", &frag_shader_errmsg[0]);
+        }
+        
+        // link the program
+        GLuint program = glCreateProgram();
+        glAttachShader(program, vert_shader);
+        glAttachShader(program, frag_shader);
+        glLinkProgram(program);
+        
+        // check the program
+        glGetProgramiv(program, GL_LINK_STATUS, &result);
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_length);
+        if ( info_length > 0 ){
+            vector<char> program_errmsg(info_length+1);
+            glGetProgramInfoLog(program, info_length, NULL, &program_errmsg[0]);
+            printf("%s\n", &program_errmsg[0]);
+        }
+        
+        glDetachShader(1, vert_shader);
+        glDetachShader(1, frag_shader);
+        glDeleteShader(vert_shader);
+        glDeleteShader(frag_shader);
+        
+        return program;
+    }
 
    void MeshEdit::initializeStyle( void )
    {
@@ -83,7 +255,7 @@ namespace CMU462 {
         hoverStyle.halfedgeColor = Color( 0.9, 0.9, 0.9 );
        selectStyle.halfedgeColor = Color( 1.0, 1.0, 1.0 );
 
-      defaultStyle.faceColor = Color( 0.5, 0.50, 0.90 );
+      defaultStyle.faceColor = Color( 0.211, 0.327, 0.6627 );
         hoverStyle.faceColor = Color( 0.9, 0.75, 0.75 );
        selectStyle.faceColor = Color( 1.0, 1.00, 1.00 );
 
@@ -1356,6 +1528,7 @@ namespace CMU462 {
    void MeshEdit::renderMesh( HalfedgeMesh& mesh )
    {
       glEnable(GL_LIGHTING);
+       glUseProgram(0);
       drawFaces( mesh );
 
       // Edges are drawn with flat shading.
@@ -1363,6 +1536,7 @@ namespace CMU462 {
 //      drawEdges( mesh );
 
       drawVertices( mesh );
+      glUseProgram(0);
 //      drawHalfedges( mesh );
    }
 

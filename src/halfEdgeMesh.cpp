@@ -591,7 +591,7 @@ namespace CMU462 {
         long count = 0;
         for (long i = 0; i<vertices.size(); i++) {
             //only update the vertices that have significant error
-            if (error[i]>0.01) {
+            if (error[i]>0.0001) {
                 height_map[i] += (laplacian_height_map[i]-height_map[i])/100;
                 count++;
             }
