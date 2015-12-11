@@ -656,19 +656,14 @@ namespace CMU462 {
         }
         
         M.setIdentity();
-        Eigen::SimplicialCholesky<SpMat> chol(M-(0.001*Laplacian));
+        Eigen::SimplicialCholesky<SpMat> chol(M-(0.1*Laplacian));
+        Eigen::VectorXd new_positions;
         positionsVector = chol.solve(positionsVector);
         
         for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
-            if (set_map.find(v->index) == set_map.end()) {
-                v->position.x = positionsVector(v->index,0);
-                v->position.y = positionsVector(v->index,1);
-                v->position.z = positionsVector(v->index,2);
-            }
-            else
-            {
-                v->position = v->original_position + (v->original_normal*set_map[v->index]);
-            }
+            v->position.x = positionsVector(v->index,0);
+            v->position.y = positionsVector(v->index,1);
+            v->position.z = positionsVector(v->index,2);
         }
         
         computeCotan();

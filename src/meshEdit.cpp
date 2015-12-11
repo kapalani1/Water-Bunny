@@ -529,6 +529,7 @@ namespace CMU462 {
               break;
          case 'h':
          case 'H':
+              meshNodes[0].mesh.time_step = 0.05;
               meshNodes[0].mesh.eulerian_scheme = BACKWARD;
               if (!meshNodes[0].mesh.set_map.size()) {
                   add_random_point();
@@ -537,6 +538,7 @@ namespace CMU462 {
               break;
          case 'w':
          case 'W':
+              meshNodes[0].mesh.time_step = 0.1;
               meshNodes[0].mesh.eulerian_scheme = SYMPLECTIC;
               if (!meshNodes[0].mesh.set_map.size()) {
                   add_random_point();
