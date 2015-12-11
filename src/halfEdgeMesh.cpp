@@ -450,6 +450,7 @@ namespace CMU462 {
 
        //construct Laplacian
        Laplacian.setFromTriplets(tripleList.begin(),tripleList.end());
+       
        /* BROKEN *
        
        //Laplacian is of size (n+m)xn where m is the number of additional constraints
@@ -568,11 +569,6 @@ namespace CMU462 {
     
     void HalfedgeMesh::update_height_map_wave()
     {
-        for (auto it = set_map.begin(); it != set_map.end(); it++)
-        {
-            height_map[it->first] = it->second;
-        }
-        
         if (eulerian_scheme == SYMPLECTIC) {
             velocity_map = velocity_map + time_step*Laplacian*height_map;
             height_map = height_map + time_step*velocity_map;
@@ -589,7 +585,7 @@ namespace CMU462 {
     
     bool HalfedgeMesh::update_height_map_laplacian()
     {
-//        //set the height map to be the new height positions
+        //set the height map to be the new height positions
         Eigen::ArrayXd error(height_map.size(),1);
         error = laplacian_height_map - height_map;
         long count = 0;
@@ -650,6 +646,36 @@ namespace CMU462 {
         laplacian_height_map = temp;
     }
     
+    void HalfedgeMesh::update_positions_curvature_flow()
+    {
+        Eigen::MatrixXd positionsVector(vertices.size(),3);
+        for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
+            positionsVector(v->index,0) = v->position.x;
+            positionsVector(v->index,1) = v->position.y;
+            positionsVector(v->index,2) = v->position.z;
+        }
+        
+        M.setIdentity();
+        Eigen::SimplicialCholesky<SpMat> chol(M-(0.001*Laplacian));
+        positionsVector = chol.solve(positionsVector);
+        
+        for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
+            if (set_map.find(v->index) == set_map.end()) {
+                v->position.x = positionsVector(v->index,0);
+                v->position.y = positionsVector(v->index,1);
+                v->position.z = positionsVector(v->index,2);
+            }
+            else
+            {
+                v->position = v->original_position + (v->original_normal*set_map[v->index]);
+            }
+        }
+        
+        computeCotan();
+        computeLaplacian();
+        std::cout<<"Done smoothing "<<std::endl;
+    }
+    
     void HalfedgeMesh::add_random_point()
     {
         height_map[rand() % vertices.size()] = (rand()/(RAND_MAX*1.0));
@@ -703,7 +729,7 @@ namespace CMU462 {
         eulerian_scheme = SYMPLECTIC;
         height_map = Eigen::VectorXd::Zero(vertices.size(),1);
         velocity_map = Eigen::VectorXd::Zero(vertices.size(),1);
-        time_step = 0.2;
+        time_step = 0.1;
     }
 
    const HalfedgeMesh& HalfedgeMesh :: operator=( const HalfedgeMesh& mesh )

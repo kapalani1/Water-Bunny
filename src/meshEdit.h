@@ -226,7 +226,7 @@ class MeshEdit : public Renderer {
   // --  Private Variables.
   Scene* scene;
     
-  enum equation {laplacian,heat,wave,none};
+  enum equation {laplacian,heat,wave,curvature,none,};
     
   equation startAnimating = heat;
     
@@ -278,7 +278,8 @@ class MeshEdit : public Renderer {
   void advanceByOneFrameHeat();
   void advanceByOneFrameWave();
   void advanceByOneFrameLaplacian();
-    
+  void advanceByOneFrameMeanCurvature();
+
   void add_random_point();
   void update_positions_in_set_map();
 

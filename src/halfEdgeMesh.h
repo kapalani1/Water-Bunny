@@ -676,6 +676,8 @@ namespace CMU462
          bool update_height_map_laplacian();
        
          void compute_height_map_laplacian();
+       
+         void update_positions_curvature_flow();
 
           /* Sparse Matrix that contains Laplacian */
           SpMat Laplacian;

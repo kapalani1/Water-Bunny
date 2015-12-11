@@ -114,6 +114,8 @@ namespace CMU462 {
           advanceByOneFrameWave();
       else if(startAnimating == laplacian)
           advanceByOneFrameLaplacian();
+      else if(startAnimating == curvature)
+          advanceByOneFrameMeanCurvature();
       draw_meshes();
 
       // // Draw the helpful picking messages.
@@ -210,6 +212,7 @@ namespace CMU462 {
         {
             meshNodes[0].mesh.height_map[it->first] = it->second;
         }
+        
         meshNodes[0].mesh.update_height_map_wave();
         for(VertexIter v = meshNodes[0].mesh.verticesBegin();
             v!= meshNodes[0].mesh.verticesEnd();
@@ -228,7 +231,7 @@ namespace CMU462 {
             solve_laplacian = false;
             meshNodes[0].mesh.compute_height_map_laplacian();
         }
-//        //move each vertex by some height h by its original normal
+        //move each vertex by some height h by its original normal
         if(meshNodes[0].mesh.update_height_map_laplacian())
         {
             startAnimating = none;
@@ -243,6 +246,12 @@ namespace CMU462 {
             v->position = (v->original_position +
                            (v->original_normal*ht));
         }
+    }
+    
+    void MeshEdit::advanceByOneFrameMeanCurvature()
+    {
+        meshNodes[0].mesh.update_positions_curvature_flow();
+        startAnimating = curvature;
     }
     
    void MeshEdit::draw_meshes()
@@ -387,6 +396,10 @@ namespace CMU462 {
               {
                   std::cout<<"Must select a vertex to displace"<<std::endl;
               }
+              break;
+         case 'm':
+         case 'M':
+              advanceByOneFrameMeanCurvature();
               break;
          default:
             break;
