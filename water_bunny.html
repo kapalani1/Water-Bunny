@@ -1,0 +1,663 @@
+<!DOCTYPE html><html>
+
+<head>
+<meta charset="utf-8">
+<title>README</title>
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+</head>
+<body>
+<h2 id="toc_0">15462 Computer Graphics Assignment 5: Go Further (Water Bunny)</h2>
+
+<h3 id="toc_1">Karthic Palaniappan kapalani</h3>
+
+<p><a href="http://462cmu.github.io/asst5_gofurther/">http://462cmu.github.io/asst5_gofurther/</a></p>
+
+<h3 id="toc_2">Project Description</h3>
+
+<p>I chose option C: Mesh-Based Dynamics as the topic to extend for my Assignment 5. As outlined in the initial project proposal, I modelled and implemented the 3 model linear partial differential equations : namely the laplace equation, the heat equation and the wave equation. In order to make the simulation real time or as close to real time as possible to maintain a good frame rate, I used Eigen to set up and solve the linear systems. I also added support for basic shape editing in the form of mesh smoothing by performing mean curvature flow which also used the Laplacian</p>
+
+<h3 id="toc_3">Building and Running</h3>
+
+<p>All the code for the assignment is in the asst5 directory. This assignment builds directly off the code provided for the asst2 meshedit program so the building process for this assignment is the same. Just make a build folder, run cmake and then run make inside the build folder. </p>
+
+<p><strong>Note</strong> If you are planning to run the code locally, you might need to install Eigen. Eigen is a Linear Algebra Library that can be downloaded at this <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Link</a>. Once you download and extract the zip file, simply paste the folder called <code>Eigen</code> that contains all the binaries into the <code>src</code> folder in asst5 and it should build succesfully</p>
+
+<h3 id="toc_4">Program Controls</h3>
+
+<p>Below is a list of <em>additional</em> controls that I&#39;ve added to support various functionalities. These are in addition to the already existing controls from asst2 but since the focus of this project is on the simulation aspect, I will not list those controls here</p>
+
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Purpose</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>L</td>
+<td>Simulate the Laplace Equation. Given a set of initial conditions, this will result in an animated simulation of the averaging of the regions around the initial conditions</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Simulate the heat equation. By default this uses a backward euler scheme for stability. If specific initial points are specified by the user, use those, otherwise randomly pick a vertex and displace it by some amount and then solve the heat equation</td>
+</tr>
+<tr>
+<td>W</td>
+<td>Simulate the wave equation. By default this uses a symplectic euler scheme for continuous waves. If specific initial points are specified by the user, use those, otherwise randomly pick a vertex and displace it by some amount and solve the wave equation</td>
+</tr>
+<tr>
+<td>]</td>
+<td>Double the time step for the integration schemes</td>
+</tr>
+<tr>
+<td>[</td>
+<td>Half the timestep for the integration schemes</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Set the Eulerian Integration Scheme to be Symplectic</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Set the Eulerian Integration Scheme to be Backward</td>
+</tr>
+<tr>
+<td>K</td>
+<td>If a vertex was selected by the user, then pressing K will simply displace this vertex by a random amount in the normal direction. This is one way the user specifies the initial conditions. If successful, the vertex will turn green on future interactions (hovers or clicks). This feature is implemented primarily because I found it really hard to provide accurate height measurements at the vertices by simply dragging the vertex positions</td>
+</tr>
+<tr>
+<td>M</td>
+<td>If not already running mesh smoothing, start running the Mean Curvature Flow to smooth the mesh, otherwise stop running mean curvature flow</td>
+</tr>
+<tr>
+<td>J</td>
+<td>Run Taubin Smoothing. This is essentially a better smoothing technique that doesn&#39;t shrink the mesh. If already running stop Taubin Smoothing</td>
+</tr>
+<tr>
+<td>-</td>
+<td>Shrink <code>λ</code> for mesh smoothing</td>
+</tr>
+<tr>
+<td>+</td>
+<td>Grow <code>λ</code> for mesh smoothing</td>
+</tr>
+<tr>
+<td>(</td>
+<td>Shrink <code>µ</code> for mesh smoothing</td>
+</tr>
+<tr>
+<td>)</td>
+<td>Grow <code>µ</code> for mesh smoothing</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>Double the scale for the displacements used when pressing K. Essentially allow a much bigger range of random displacements</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>Half the scale for the displacements used when pressing K. Essentially Allow for a much smaller range of random displacements</td>
+</tr>
+<tr>
+<td>Mouse Controls</td>
+<td>You can select a vertex and drag it around and this will set the height of the vertex to be the projection of difference between its position and the original position along that vertex&#39;s normal.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="toc_5">Features Implemented and Design decisions</h3>
+
+<p>In this section I will describe the design decisions that I made and the features that I implemented in detail. It is essentially a roadmap of the progress and some images of results</p>
+
+<h4 id="toc_6">Modelling the 3 Model PDE&#39;s</h4>
+
+<p>As a first step I started by discretizing the Laplacian. On a grid mesh it is defined as a linear combination of some weights and similarly on triangle meshes as well, the Laplacian is defined to be a linear combination of the cotangent weights. There is a choice in the weights we can choose here. Some papers describe a simple umbrella operator that weighs all neighbors equally as 1/degree of the vertex under consideration but the cotangent weights account for the shape of the mesh as well.</p>
+
+<p>Once I discretized the Laplacian, I first implemented an iterative version that solved the Laplacian by first calculating the averages in a small neighborhood and then propogating it out to all of its neighbors. In order to animate this process to make it feel like a simulation I added a height map to the mesh that is just a big vector of heights of all the vertices in the mesh. </p>
+
+<h4 id="toc_7">Improving Efficiency with Eigen</h4>
+
+<p>After verifying that the Jacobi (iterative) method produced the right results, I speeded up the process by modelling the process of taking the Laplacian of the mesh as a simple Matrix Multiplication and in order to do so I used a Sparse Matrix. The reason why I chose a Sparse Matrix is because most of the vertices have a much smaller number of neighbors than the number of vertices in the mesh which would result in a lot of zeros in every row. The Laplacian Matrix had the following closed form</p>
+
+<p>L(i,j) = -1 if i == j</p>
+
+<p>L(i,j) = 0 if i and j are NOT neighbors (they DO NOT share any edges)</p>
+
+<p>L(i,j) = w(i,j) if i and j are neighbors, where w(i,j) is the cotangent weight given by the sum of the cotangent of the 2 angles across the halfedge divided by 2</p>
+
+<p>Once I modelled it as Linear System, I could now use Eigen&#39;s solvers to vastly improve performance. This also allowed me to implement the part of the project that allowed the user to select the integration scheme since all that changed was that we had to solve a different linear equation. I did not add support for the forward Eulerian scheme because it is inherently unstable unless under very special conditions. The currently supported Eulerian Schemes are backward and symplectic, but Forward Euler is easy to extend.</p>
+
+<h4 id="toc_8">Animating the solutions</h4>
+
+<p>There is one aspect to the animating the solutions that I glossed over when previously doing the animations and it has to do with the normals. Even if the positions we send to render the mesh are correct the face&#39;s normals also have to be adjusted to adjust for the new positions of the vertices. In my implementation I do this by having 2 fields in each vertex called the original<em>position and original</em>normal and every time I want to display a frame of the mesh when modelling the 3 basic linear equations all I had to do was set the position field of the vertex (the one that would end up being drawn) to its original position(that doesn&#39;t change unless the mesh deforms) + its height (as given by the height map) * original_normal. This adjustment made sure there were no holes when the mesh grew and shrunk and this made the animation smoother.</p>
+
+<h5 id="toc_9">Results of simulating the 3 basic equations on different meshes</h5>
+
+<ul>
+<li><p>Waves Propogating Out on Bunny. Notice the circular patterns around initial disturbance point much like dropping a pebble into a pond
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.39.41%20PM.png" alt="Waves Propogating Out on Bunny"></p></li>
+<li><p>Waves that started near the leg now reaching the face of the bunny
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.39.56%20PM.png" alt="Waves that started near the leg now reaching the face of the bunny"></p></li>
+<li><p>Laplace Equation on Quadball (Essentially average out the initial displacement across all the neighbors)
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.17.39%20PM.png" alt="Laplace Equation on Quadball"></p></li>
+<li><p>Intermediate Step in Heat Equation on Quadball. Notice the heat distributing out into the rest of the neighborhood
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.14.12%20PM.png" alt="Intermediate Step in Heat Equation on Quadball"></p></li>
+</ul>
+
+<h4 id="toc_10">Solving the Laplace Equation</h4>
+
+<p>Solving the Laplace equation was complicated by the fact that we were trying to solve a linear system Lu = 0 which always had the trivial solution given no initial conditions and this was the solution Eigen kept giving me (which obviously wasn&#39;t desirable). To solve this problem I set up the system as a linear least squares problem and turned it into an overconstrained system that accounted for the initial conditions by adding a row of the identity matrix at the bottom of the Laplacian matrix. However this made the system non-square and only the QR solver from the Eigen Library could solve this and this was rather slow, but the equivalent square system <code>L^T x L x u = L^T x b</code> 
+when solved using Cholesky factorization resulted in an unstable solution. Therefore I ended up solving the Laplace equation iteratively as this was fast enough for the purposes of the simple equation</p>
+
+<h4 id="toc_11">Adding user support for specifying scale and time steps</h4>
+
+<p>In order to make the application more interactive I added several features to support user interaction. The user is now able to specify eulerian schemes and adjust the time steps used in the integration. Upto this point I was using a random displacement at some vertex in the mesh, but I now added support for the user to specify where he wants the displacement to occur. There are 2 ways currently supported : Click on a vertex and hit <code>K</code> and verify that the vertex is turned green and when starting a simulation, these are used as the initial conditions. The user can also drag vertices around to specify displacements, but I found this to be rather difficult to get good displacements perhaps due to the way I implemented the height calculation (project a vector from the old position to the new position onto the normal at that vertex), yet this functionality is available if the user wants to use it. This was also the time when I implemented the minor changes to UI such as coloring the mesh a shade of blue very close to water, cleaning up the drawing of the halfedges, the HUD bar or the edges since we don&#39;t use those anymore, etc.</p>
+
+<p>This also means that the user can now specify mutliple initial conditions and watch some very interesting patterns such as destructive and constructive interference with waves!</p>
+
+<p>Also if you&#39;re tired of waiting, you can increase the time step for just a bit and then go back to a lower time step. Just be sure not to increase the time step too much, otherwise the animation will blow up!</p>
+
+<ul>
+<li>A selected Vertex in the mesh shaded green
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.14.00%20PM.png" alt="A selected Vertex shaded Green"></li>
+</ul>
+
+<h4 id="toc_12">Mesh Smoothing using Mean Curvature Flow</h4>
+
+<p>The last part of this project involved extending the Laplacian operator to smooth the mesh. Uptill this point, I was using the height as the scalar function that I was considering the Laplcian of, but now I actually use the positions of the vertices in the mesh itself as the scalar function and run the Laplacian over them. I found that the forward Euler scheme produces pretty stable results given some its stability condition <code>|λdt| ≤ 1</code>. However it might produce ripples at the edges. The basic steps for the mean curvature flow were as follows : </p>
+
+<ol>
+<li>Compute new cotangent weights and the Laplacian based on current vertex positions</li>
+<li>Multiply laplacian by a |V| x 3 matrix containing the X,Y,Z coordinates of all vertices in the mesh</li>
+<li>Solve the differential equation using whichever Eulerian scheme you want. </li>
+<li>Set the positions of all vertices in the mesh to be the new positions</li>
+<li>Repeat</li>
+</ol>
+
+<h4 id="toc_13">Taubin Smoothing</h4>
+
+<p>I also implemented Taubin smoothing that preserves mesh quality much better than the standard Laplacian Smoothing. The essential idea with Taubin Smoothing is to shrink and grow the mesh each time rather than just shrink it. To accomodate for this, there are also grow and shrink factors for the mesh <code>λ</code> and <code>µ</code></p>
+
+<h5 id="toc_14">Results of Mesh Smoothing</h5>
+
+<ul>
+<li><p>Stanford Bunny</p>
+
+<ul>
+<li><p>Original Bunny
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.20.52%20PM.png" alt="Original Bunny"></p></li>
+<li><p>Slightly Smoother Bunny
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.20.17%20PM.png" alt="Slightly Smoothed Bunny"></p></li>
+<li><p>Very Smooth Bunny
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.21.07%20PM.png" alt="Very Smooth Bunny"></p></li>
+<li><p>Very Smotth Bunny With sharp points as artifacts clearly visible
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.21.35%20PM.png" alt="Very Smotth Bunny With sharp points as artifacts clearly visible"></p></li>
+</ul></li>
+<li><p>Peter</p>
+
+<ul>
+<li><p>Original Peter
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.22.00%20PM.png" alt="Original Peter"></p></li>
+<li><p>Slightly Smoothed Peter
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.22.13%20PM.png" alt="Slightly Smoothed Peter"></p></li>
+<li><p>Very Smooth Peter
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.22.40%20PM.png" alt="Very Smooth Peter"></p></li>
+<li><p>Very Smotth Peter With sharp points as artifacts clearly visible
+<img src="img/Screen%20Shot%202015-12-11%20at%2010.23.06%20PM.png" alt="Very Smotth Peter With sharp points as artifacts clearly visible"></p></li>
+<li><p>Taubin Smoothing of the Bunny Mesh. Notice how there are still some sharp points, but even after a long time, the mesh size is still the same
+<img src="img/Screen%20Shot%202015-12-12%20at%205.46.18%20PM.png" alt=""></p></li>
+</ul></li>
+</ul>
+
+<h3 id="toc_15">Further Improvements</h3>
+
+<ul>
+<li>At present I use a simple GL_SMOOTH shading technique, but as visible from the meshes, this sort of gives away the fact that the simulation is just that (a simulation) because the lighting is somewhat unrealistic. If I had more time I would have liked to implement a phong shader for realistic shading and maybe render the mesh with a water texture map for even more realisitc visualization.</li>
+</ul>
+
+<h3 id="toc_16">Final Remarks</h3>
+
+<p>Overall I had a lot of fun working on this assignment. The freedom in the design space was interesting to work with and it was quite amazing to realize how important the Laplacian is in Computer Graphics and understand the math behind discretizing continuous operations over meshes. All the features I implemented in this assignment and a huge number more are all simple modifications to a differential equation involving the Laplacian. Professor Crane was certainly not joking when he said if you could learn one thing about PDE&#39;s in graphics learn the Laplacian.</p>
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=_self.Prism={util:{encode:function(e){return e instanceof n?new n(e.type,t.util.encode(e.content),e.alias):"Array"===t.util.type(e)?e.map(t.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=t.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return t.util.clone(e)})}return e}},languages:{extend:function(e,n){var a=t.util.clone(t.languages[e]);for(var r in n)a[r]=n[r];return a},insertBefore:function(e,n,a,r){r=r||t.languages;var i=r[e];if(2==arguments.length){a=arguments[1];for(var l in a)a.hasOwnProperty(l)&&(i[l]=a[l]);return i}var o={};for(var s in i)if(i.hasOwnProperty(s)){if(s==n)for(var l in a)a.hasOwnProperty(l)&&(o[l]=a[l]);o[s]=i[s]}return t.languages.DFS(t.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,n,a){for(var r in e)e.hasOwnProperty(r)&&(n.call(e,r,e[r],a||r),"Object"===t.util.type(e[r])?t.languages.DFS(e[r],n):"Array"===t.util.type(e[r])&&t.languages.DFS(e[r],n,r))}},highlightAll:function(e,n){for(var a,r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'),i=0;a=r[i++];)t.highlightElement(a,e===!0,n)},highlightElement:function(a,r,i){for(var l,o,s=a;s&&!e.test(s.className);)s=s.parentNode;s&&(l=(s.className.match(e)||[,""])[1],o=t.languages[l]),a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,s=a.parentNode,/pre/i.test(s.nodeName)&&(s.className=s.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var u=a.textContent,c={element:a,language:l,grammar:o,code:u};if(u&&(c.code=u.replace(/^(?:\r?\n|\r)/,"")),!u||!o)return t.hooks.run("complete",c),void 0;if(t.hooks.run("before-highlight",c),r&&_self.Worker){var g=new Worker(t.filename);g.onmessage=function(e){c.highlightedCode=n.stringify(JSON.parse(e.data),l),t.hooks.run("before-insert",c),c.element.innerHTML=c.highlightedCode,i&&i.call(c.element),t.hooks.run("after-highlight",c),t.hooks.run("complete",c)},g.postMessage(JSON.stringify({language:c.language,code:c.code}))}else c.highlightedCode=t.highlight(c.code,c.grammar,c.language),t.hooks.run("before-insert",c),c.element.innerHTML=c.highlightedCode,i&&i.call(a),t.hooks.run("after-highlight",c),t.hooks.run("complete",c)},highlight:function(e,a,r){var i=t.tokenize(e,a);return n.stringify(t.util.encode(i),r)},tokenize:function(e,n){var a=t.Token,r=[e],i=n.rest;if(i){for(var l in i)n[l]=i[l];delete n.rest}e:for(var l in n)if(n.hasOwnProperty(l)&&n[l]){var o=n[l];o="Array"===t.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,f=0,h=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var d=r[p];if(r.length>e.length)break e;if(!(d instanceof a)){u.lastIndex=0;var m=u.exec(d);if(m){g&&(f=m[1].length);var y=m.index-1+f,m=m[0].slice(f),v=m.length,k=y+v,b=d.slice(0,y+1),w=d.slice(k+1),N=[p,1];b&&N.push(b);var O=new a(l,c?t.tokenize(m,c):m,h);N.push(O),w&&N.push(w),Array.prototype.splice.apply(r,N)}}}}}return r},hooks:{all:{},add:function(e,n){var a=t.hooks.all;a[e]=a[e]||[],a[e].push(n)},run:function(e,n){var a=t.hooks.all[e];if(a&&a.length)for(var r,i=0;r=a[i++];)r(n)}}},n=t.Token=function(e,t,n){this.type=e,this.content=t,this.alias=n};if(n.stringify=function(e,a,r){if("string"==typeof e)return e;if("Array"===t.util.type(e))return e.map(function(t){return n.stringify(t,a,e)}).join("");var i={type:e.type,content:n.stringify(e.content,a,r),tag:"span",classes:["token",e.type],attributes:{},language:a,parent:r};if("comment"==i.type&&(i.attributes.spellcheck="true"),e.alias){var l="Array"===t.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(i.classes,l)}t.hooks.run("wrap",i);var o="";for(var s in i.attributes)o+=s+'="'+(i.attributes[s]||"")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'" '+o+">"+i.content+"</"+i.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var n=JSON.parse(e.data),a=n.language,r=n.code;_self.postMessage(JSON.stringify(t.util.encode(t.tokenize(r,t.languages[a])))),_self.close()},!1),_self.Prism):_self.Prism;var a=document.getElementsByTagName("script");return a=a[a.length-1],a&&(t.filename=a.src,document.addEventListener&&!a.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism);
+</script>
+</body>
+
+</html>
