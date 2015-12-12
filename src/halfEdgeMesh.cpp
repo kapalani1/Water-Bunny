@@ -598,16 +598,19 @@ namespace CMU462 {
             v->original_position = v->position;
             v->original_normal = v->normal();
             v->index = i;
-            HalfedgeIter start = v->halfedge();
-            HalfedgeIter h = v->halfedge();
-            double total_area;
-            do
+            if (nBoundaries()==0)
             {
-                total_area += h->face()->area();
-                h = h->twin()->next();
-            } while (h != start);
-            v->dual_area = total_area/3.0;
-            tripleList.push_back(Triple(v->index,v->index,v->dual_area));
+                HalfedgeIter start = v->halfedge();
+                HalfedgeIter h = v->halfedge();
+                double total_area;
+                do
+                {
+                    total_area += h->face()->area();
+                    h = h->twin()->next();
+                } while (h != start);
+                v->dual_area = total_area/3.0;
+                tripleList.push_back(Triple(v->index,v->index,v->dual_area));
+            }
             i++;
         }
         M.setFromTriplets(tripleList.begin(),tripleList.end());
