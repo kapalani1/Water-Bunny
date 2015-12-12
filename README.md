@@ -26,6 +26,11 @@ Below is a list of *additional* controls that I've added to support various func
 | 2  | Set the Eulerian Integration Scheme to be Backward |
 | K |  If a vertex was selected by the user, then pressing K will simply displace this vertex by a random amount in the normal direction. This is one way the user specifies the initial conditions. If successful, the vertex will turn green on future interactions (hovers or clicks). This feature is implemented primarily because I found it really hard to provide accurate height measurements at the vertices by simply dragging the vertex positions |
 | M | If not already running mesh smoothing, start running the Mean Curvature Flow to smooth the mesh, otherwise stop running mean curvature flow |
+| J | Run Taubin Smoothing. This is essentially a better smoothing technique that doesn't shrink the mesh. If already running stop Taubin Smoothing |
+| - | Shrink ```λ``` for mesh smoothing |
+| + | Grow ```λ``` for mesh smoothing |
+| ( | Shrink ```µ``` for mesh smoothing |
+| ) | Grow ```µ``` for mesh smoothing |
 | > | Double the scale for the displacements used when pressing K. Essentially allow a much bigger range of random displacements |
 | < | Half the scale for the displacements used when pressing K. Essentially Allow for a much smaller range of random displacements |
 | Mouse Controls | You can select a vertex and drag it around and this will set the height of the vertex to be the projection of difference between its position and the original position along that vertex's normal. |
@@ -92,6 +97,9 @@ The last part of this project involved extending the Laplacian operator to smoot
 4. Set the positions of all vertices in the mesh to be the new positions
 5. Repeat
 
+#### Taubin Smoothing
+I also implemented Taubin smoothing that preserves mesh quality much better than the standard Laplacian Smoothing. The essential idea with Taubin Smoothing is to shrink and grow the mesh each time rather than just shrink it. To accomodate for this, there are also grow and shrink factors for the mesh ```λ``` and ```µ```
+
 ##### Results of Mesh Smoothing
 - Stanford Bunny
 	- Original Bunny
@@ -119,11 +127,12 @@ The last part of this project involved extending the Laplacian operator to smoot
 	- Very Smotth Peter With sharp points as artifacts clearly visible
 ![Very Smotth Peter With sharp points as artifacts clearly visible](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.23.06 PM.png)
 
+	- Taubin Smoothing of the Bunny Mesh. Notice how there are still some sharp points, but even after a long time, the mesh size is still the same
+![](/Users/karthic/Desktop/Screen Shot 2015-12-12 at 5.46.18 PM.png)
+
 ### Further Improvements
 
 - At present I use a simple GL_SMOOTH shading technique, but as visible from the meshes, this sort of gives away the fact that the simulation is just that (a simulation) because the lighting is somewhat unrealistic. If I had more time I would have liked to implement a phong shader for realistic shading and maybe render the mesh with a water texture map for even more realisitc visualization.
-
-- You might notice that if you run the Mesh Smoothing operator on a detailed mesh like the bunny or peter then the mesh certainly gets smoother, but it also shrinks and there are artifacts at the edges with sharp points. This is a characteristic of the standard mesh smoothing using the Laplacian operator without any modifications. In order to account for this, I would have either changed Mesh Smoothing to use Taubin's smoothing algorithm (or rather calibrated the constants better for Taubin's smoothing algorithm, since Taubin's algorithm is just run a expanding and shrinking every time as opposed to just expanding) or a better smoothing technique
 
 ### Final Remarks
 Overall I had a lot of fun working on this assignment. The freedom in the design space was interesting to work with and it was quite amazing to realize how important the Laplacian is in Computer Graphics and understand the math behind discretizing continuous operations over meshes. All the features I implemented in this assignment and a huge number more are all simple modifications to a differential equation involving the Laplacian. Professor Crane was certainly not joking when he said if you could learn one thing about PDE's in graphics learn the Laplacian.
