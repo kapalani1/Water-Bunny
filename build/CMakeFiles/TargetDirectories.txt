@@ -1,0 +1,4 @@
+/Users/karthic/15462/asst5_waterbunny/build/src/CMakeFiles/meshedit.dir
+/Users/karthic/15462/asst5_waterbunny/build/CMU462/src/CMakeFiles/CMU462.dir
+/Users/karthic/15462/asst5_waterbunny/build/CMU462/deps/glfw/CMakeFiles/uninstall.dir
+/Users/karthic/15462/asst5_waterbunny/build/CMU462/deps/glfw/src/CMakeFiles/glfw.dir
