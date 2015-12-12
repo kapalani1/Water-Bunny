@@ -400,6 +400,9 @@ namespace CMU462 {
                   std::cout<<"Must select a vertex to displace"<<std::endl;
               }
               break;
+         case 'j':
+         case 'J':
+              meshNodes[0].mesh.taubin = true;
          case 'm':
          case 'M':
               meshNodes[0].mesh.time_step = 0.3;
@@ -416,6 +419,7 @@ namespace CMU462 {
                       v->original_position = v->position;
                       v->original_normal = v->normal();
                   }
+                  meshNodes[0].mesh.taubin = false;
               }
               break;
          case '.':
@@ -425,6 +429,22 @@ namespace CMU462 {
          case ',':
          case '<':
               scale /=2;
+              break;
+         case '-':
+         case '_':
+              meshNodes[0].mesh.lambda -= 0.1;
+              break;
+         case '+':
+         case '=':
+              meshNodes[0].mesh.lambda +=0.1;
+              break;
+         case '(':
+         case '9':
+              meshNodes[0].mesh.nu -= 0.1;
+              break;
+         case ')':
+         case '0':
+              meshNodes[0].mesh.nu +=0.1;
               break;
          default:
             break;

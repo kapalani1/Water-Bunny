@@ -704,6 +704,11 @@ namespace CMU462
           /* Boolean to determine if we need to solve Laplacian */
           bool solve_Laplacian = false;
        
+          double lambda = 1.8;
+          double nu = -1.81;
+       
+          bool taubin = false;
+       
       protected:
 
          /**

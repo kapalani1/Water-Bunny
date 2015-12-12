@@ -540,7 +540,14 @@ namespace CMU462 {
     
     void HalfedgeMesh::update_positions_curvature_flow()
     {
-        double lambda = 1.8;
+        if (lambda>1.9) {
+            lambda = 1.9;
+        }
+        
+        if (nu < -1.91) {
+            nu = -1.91;
+        }
+        
         Eigen::MatrixXd positionsVector(vertices.size(),3);
         for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
             positionsVector(v->index,0) = v->position.x;
@@ -554,6 +561,9 @@ namespace CMU462 {
             time_step = 0.5;
         }
         positionsVector = (M+time_step*lambda*Laplacian)*positionsVector;
+        if (taubin) {
+            positionsVector = (M+time_step*nu*Laplacian)*positionsVector;
+        }
         
         for (VertexIter v = verticesBegin(); v != vertices.end(); v++) {
             v->position.x = positionsVector(v->index,0);
@@ -619,6 +629,8 @@ namespace CMU462 {
     void HalfedgeMesh::initializeScalarMaps()
     {
         eulerian_scheme = SYMPLECTIC;
+        lambda = 1.8;
+        nu = -1.81;
         height_map = Eigen::VectorXd::Zero(vertices.size(),1);
         velocity_map = Eigen::VectorXd::Zero(vertices.size(),1);
         time_step = 0.1;
