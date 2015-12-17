@@ -60,16 +60,16 @@ There is one aspect to the animating the solutions that I glossed over when prev
 
 ##### Results of simulating the 3 basic equations on different meshes
 - Waves Propogating Out on Bunny. Notice the circular patterns around initial disturbance point much like dropping a pebble into a pond
-![Waves Propogating Out on Bunny](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.39.41 PM.png)
+![Waves Propogating Out on Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.39.41 PM.png)
 
 - Waves that started near the leg now reaching the face of the bunny
-![Waves that started near the leg now reaching the face of the bunny](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.39.56 PM.png)
+![Waves that started near the leg now reaching the face of the bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.39.56 PM.png)
 
 - Laplace Equation on Quadball (Essentially average out the initial displacement across all the neighbors)
-![Laplace Equation on Quadball](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.17.39 PM.png)
+![Laplace Equation on Quadball](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.17.39 PM.png)
 
 - Intermediate Step in Heat Equation on Quadball. Notice the heat distributing out into the rest of the neighborhood
-![Intermediate Step in Heat Equation on Quadball](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.14.12 PM.png)
+![Intermediate Step in Heat Equation on Quadball](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.14.12 PM.png)
 
 #### Solving the Laplace Equation
 
@@ -85,7 +85,7 @@ This also means that the user can now specify mutliple initial conditions and wa
 Also if you're tired of waiting, you can increase the time step for just a bit and then go back to a lower time step. Just be sure not to increase the time step too much, otherwise the animation will blow up!
 
 - A selected Vertex in the mesh shaded green
-![A selected Vertex shaded Green](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.14.00 PM.png)
+![A selected Vertex shaded Green](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.14.00 PM.png)
 
 ####  Mesh Smoothing using Mean Curvature Flow
 
@@ -103,32 +103,32 @@ I also implemented Taubin smoothing that preserves mesh quality much better than
 ##### Results of Mesh Smoothing
 - Stanford Bunny
 	- Original Bunny
-![Original Bunny](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.20.52 PM.png)
+![Original Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.20.52 PM.png)
 
 	- Slightly Smoother Bunny
-![Slightly Smoothed Bunny](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.20.17 PM.png)
+![Slightly Smoothed Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.20.17 PM.png)
 	
 	- Very Smooth Bunny
-	![Very Smooth Bunny](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.21.07 PM.png)
+	![Very Smooth Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.21.07 PM.png)
 
 	- Very Smotth Bunny With sharp points as artifacts clearly visible
-![Very Smotth Bunny With sharp points as artifacts clearly visible](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.21.35 PM.png)
+![Very Smotth Bunny With sharp points as artifacts clearly visible](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.21.35 PM.png)
 
 - Peter
 	- Original Peter
-![Original Peter](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.22.00 PM.png)
+![Original Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.22.00 PM.png)
 
 	- Slightly Smoothed Peter
-![Slightly Smoothed Peter](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.22.13 PM.png)
+![Slightly Smoothed Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.22.13 PM.png)
 
 	- Very Smooth Peter
-![Very Smooth Peter](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.22.40 PM.png)
+![Very Smooth Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.22.40 PM.png)
 
 	- Very Smotth Peter With sharp points as artifacts clearly visible
-![Very Smotth Peter With sharp points as artifacts clearly visible](/Users/karthic/Desktop/Screen Shot 2015-12-11 at 10.23.06 PM.png)
+![Very Smotth Peter With sharp points as artifacts clearly visible](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.23.06 PM.png)
 
 	- Taubin Smoothing of the Bunny Mesh. Notice how there are still some sharp points, but even after a long time, the mesh size is still the same
-![](/Users/karthic/Desktop/Screen Shot 2015-12-12 at 5.46.18 PM.png)
+![](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-12 at 5.46.18 PM.png)
 
 ### Further Improvements
 
