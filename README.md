@@ -1,6 +1,7 @@
 ## 15462 Computer Graphics Assignment 5: Go Further (Water Bunny)
 
-### Karthic Palaniappan kapalani<http://462cmu.github.io/asst5_gofurther/>
+### Karthic Palaniappan kapalani
+<http://462cmu.github.io/asst5_gofurther/>
 
 ### Project Description
 I chose option C: Mesh-Based Dynamics as the topic to extend for my Assignment 5. As outlined in the initial project proposal, I modelled and implemented the 3 model linear partial differential equations : namely the laplace equation, the heat equation and the wave equation. In order to make the simulation real time or as close to real time as possible to maintain a good frame rate, I used Eigen to set up and solve the linear systems. I also added support for basic shape editing in the form of mesh smoothing by performing mean curvature flow which also used the Laplacian
@@ -103,32 +104,32 @@ I also implemented Taubin smoothing that preserves mesh quality much better than
 ##### Results of Mesh Smoothing
 - Stanford Bunny
 	- Original Bunny
-![Original Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.20.52 PM.png)
+![Original Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.20.52%20PM.png)
 
 	- Slightly Smoother Bunny
-![Slightly Smoothed Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.20.17 PM.png)
+![Slightly Smoothed Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.20.17%20PM.png)
 	
 	- Very Smooth Bunny
-	![Very Smooth Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.21.07 PM.png)
+	![Very Smooth Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot%202015-12-11%20at%2010.21.07%20PM.png)
 
 	- Very Smotth Bunny With sharp points as artifacts clearly visible
-![Very Smotth Bunny With sharp points as artifacts clearly visible](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.21.35 PM.png)
+![Very Smotth Bunny With sharp points as artifacts clearly visible](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.21.35%20PM.png)
 
 - Peter
 	- Original Peter
-![Original Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.22.00 PM.png)
+![Original Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11 at%2010.22.00%20PM.png)
 
 	- Slightly Smoothed Peter
-![Slightly Smoothed Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.22.13 PM.png)
+![Slightly Smoothed Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.22.13%20PM.png)
 
 	- Very Smooth Peter
-![Very Smooth Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.22.40 PM.png)
+![Very Smooth Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.22.40%20PM.png)
 
 	- Very Smotth Peter With sharp points as artifacts clearly visible
-![Very Smotth Peter With sharp points as artifacts clearly visible](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.23.06 PM.png)
+![Very Smotth Peter With sharp points as artifacts clearly visible](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.23.06%20PM.png)
 
 	- Taubin Smoothing of the Bunny Mesh. Notice how there are still some sharp points, but even after a long time, the mesh size is still the same
-![](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-12 at 5.46.18 PM.png)
+![](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-12%20at%205.46.18%20PM.png)
 
 ### Further Improvements
 
