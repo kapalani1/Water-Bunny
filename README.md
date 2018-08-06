@@ -117,7 +117,7 @@ I also implemented Taubin smoothing that preserves mesh quality much better than
 
 - Peter
 	- Original Peter
-![Original Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11 at%2010.22.00%20PM.png)
+![Original Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.22.00%20PM.png)
 
 	- Slightly Smoothed Peter
 ![Slightly Smoothed Peter](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.22.13%20PM.png)
