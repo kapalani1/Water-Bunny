@@ -86,7 +86,7 @@ This also means that the user can now specify mutliple initial conditions and wa
 Also if you're tired of waiting, you can increase the time step for just a bit and then go back to a lower time step. Just be sure not to increase the time step too much, otherwise the animation will blow up!
 
 - A selected Vertex in the mesh shaded green
-![A selected Vertex shaded Green](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.14.00 PM.png)
+![A selected Vertex shaded Green](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.14.00%20PM.png)
 
 ####  Mesh Smoothing using Mean Curvature Flow
 
