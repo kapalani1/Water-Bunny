@@ -61,16 +61,16 @@ There is one aspect to the animating the solutions that I glossed over when prev
 
 ##### Results of simulating the 3 basic equations on different meshes
 - Waves Propogating Out on Bunny. Notice the circular patterns around initial disturbance point much like dropping a pebble into a pond
-![Waves Propogating Out on Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.39.41 PM.png)
+![Waves Propogating Out on Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.39.41%20PM.png)
 
 - Waves that started near the leg now reaching the face of the bunny
-![Waves that started near the leg now reaching the face of the bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.39.56 PM.png)
+![Waves that started near the leg now reaching the face of the bunny](http://www.andrew.cmu.edu/user/kapalani/img/water_head.png)
 
 - Laplace Equation on Quadball (Essentially average out the initial displacement across all the neighbors)
-![Laplace Equation on Quadball](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.17.39 PM.png)
+![Laplace Equation on Quadball](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.17.39%20PM.png)
 
 - Intermediate Step in Heat Equation on Quadball. Notice the heat distributing out into the rest of the neighborhood
-![Intermediate Step in Heat Equation on Quadball](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot 2015-12-11 at 10.14.12 PM.png)
+![Intermediate Step in Heat Equation on Quadball](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.14.12%20PM.png)
 
 #### Solving the Laplace Equation
 
@@ -110,7 +110,7 @@ I also implemented Taubin smoothing that preserves mesh quality much better than
 ![Slightly Smoothed Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.20.17%20PM.png)
 	
 	- Very Smooth Bunny
-	![Very Smooth Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen Shot%202015-12-11%20at%2010.21.07%20PM.png)
+	![Very Smooth Bunny](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.21.07%20PM.png)
 
 	- Very Smotth Bunny With sharp points as artifacts clearly visible
 ![Very Smotth Bunny With sharp points as artifacts clearly visible](http://www.andrew.cmu.edu/user/kapalani/img/Screen%20Shot%202015-12-11%20at%2010.21.35%20PM.png)
